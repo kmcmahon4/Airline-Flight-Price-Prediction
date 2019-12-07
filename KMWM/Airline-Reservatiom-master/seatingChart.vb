@@ -143,15 +143,15 @@ Public Class seatingChart
 
 
         lstDisplay.Items.Clear()
-        lstDisplay.Items.Add("Flights Total Capacity:" & totalSeats)
-        lstDisplay.Items.Add("Total Seats Availbe:" & seatsAvailble)
+        lstDisplay.Items.Add("Flights Total Capacity: " & totalSeats)
+        lstDisplay.Items.Add("Total Seats Available: " & seatsAvailble)
         lstDisplay.Items.Add("Seats Filled : " & (20 * 6 - vacant))
         lstDisplay.Items.Add("Windows Available : " & window)
         lstDisplay.Items.Add("Other Available seats :" & vacant - window)
         lstDisplay.Items.Add("Date of Flight " + chooseForm.flightDate)
         lstDisplay.Items.Add("Days Until Flight : " & (daysUntil + 1))
 
-
+        'retrieving coefficients from data table for calculation
         Try
             Dim sql As String = "SELECT * FROM COEF;"
             Dim cmd As New OdbcCommand(sql, con)
@@ -173,9 +173,25 @@ Public Class seatingChart
         'lstDisplay.Items.Add("b2 = " & b2)
         currentPrice = a + (b1 * (-vacant - 1)) + (b2 * -daysUntil)
 
+
+        'Minimum Price
         If currentPrice < 138.0 Then
             currentPrice = 138.0
         End If
+        'Maximum Price
+        If currentPrice > 389.0 Then
+            currentPrice = 389.0
+        End If
+        'Price Spike at 13 days left
+        If daysUntil < 13 Then
+            currentPrice = currentPrice + 50
+        End If
+        'Outlier on last day
+        If daysUntil = 0 Then
+            currentPrice = currentPrice + 300
+        End If
+
+
 
         lstDisplay.Items.Add("Current Price = $" & Math.Round(currentPrice, 2))
 

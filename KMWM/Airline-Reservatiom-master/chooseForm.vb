@@ -39,7 +39,7 @@ Public Class chooseForm
         Dim fprice As Double
 
 
-
+        'Communication with DB to retrieve seat purchase information'
         Try
             Dim sql As String = "SELECT * FROM FLYER WHERE CONFIRMNUMBER = " + inputNumber.ToString + " ;"
             Dim cmd As New OdbcCommand(sql, con)
@@ -55,6 +55,9 @@ Public Class chooseForm
                 rownumber = CInt(flyerReader(5))
                 seatnumber = CInt(flyerReader(6))
                 fprice = CDbl(flyerReader(7))
+
+
+
 
                 Select Case seatnumber
                     Case 1
@@ -73,7 +76,7 @@ Public Class chooseForm
                         seatletter = "ERROR"
                 End Select
 
-
+                'Displaying Receipt Information'
                 MsgBox("Name - " & fname & " " & lname & " " & vbNewLine &
                        "Frequent Flyer - " & ffnumber & " " & vbNewLine &
                        "Flight Number - " & flight_number & " " & vbNewLine &
@@ -84,7 +87,10 @@ Public Class chooseForm
 
 
             End While
+            If confirmnumber = 0 Then
+                MsgBox("Confirmation number not found")
 
+            End If
         Catch ex As Exception
             MsgBox("ERROR" & ex.ToString)
 

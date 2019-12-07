@@ -38,7 +38,7 @@ Public Class assignFlyer
 
 
         Try
-            'insert data into student table
+            'insert data into flyer table via called procedure
             Dim sql As String = "Begin insert_flyer('" + firstName + "','" + lastName + "'," + ffNum.ToString + "," + flightNumber.ToString + "," + seatingChart.row.ToString + "," + seatingChart.seatNumber.ToString + "," + seatingChart.currentPrice.ToString + "); End;"
             Dim cmd As New OdbcCommand(sql, con)
             Dim flyerReader As OdbcDataReader = cmd.ExecuteReader()
@@ -58,7 +58,7 @@ Public Class assignFlyer
         Dim confirmNumber As Integer
 
         Try
-            'get confirmation
+            'get confirmation number and assign it to customer
             Dim sql1 As String = "SELECT CONFIRMNUMBER FROM FLYER WHERE CONFIRMNUMBER = (select max(CONFIRMNUMBER) from FLYER);"
             Dim cmd1 As New OdbcCommand(sql1, con)
             Dim flyerReader1 As OdbcDataReader = cmd1.ExecuteReader()
