@@ -3,3 +3,11 @@ Application that, based on collected data, incorporates multiple linear regressi
 @authors: Wyatt Montana, Kerri McMahon
 
 Client Application communicates with our Oracle SQL database for stored information. 
+
+
+
+Things That I learned:
+
+- Database communication with front end application
+- Data Visualization
+- Database Application Design
